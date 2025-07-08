@@ -29,65 +29,24 @@
   <div id="description"></div>
 
   <script>
-    // 학습할 나라별 영상 파일명
-<script>
-  // 학습할 주요 50개 나라별 영상 파일명
-  const videos = [
-    'USA.mp4',
-    'China.mp4',
-    'Japan.mp4',
-    'Germany.mp4',
-    'UK.mp4',
-    'France.mp4',
-    'Italy.mp4',
-    'Canada.mp4',
-    'Russia.mp4',
-    'Brazil.mp4',
-    'India.mp4',
-    'Australia.mp4',
-    'Mexico.mp4',
-    'SouthKorea.mp4',
-    'Spain.mp4',
-    'Indonesia.mp4',
-    'Turkey.mp4',
-    'Netherlands.mp4',
-    'SaudiArabia.mp4',
-    'Switzerland.mp4',
-    'Sweden.mp4',
-    'Poland.mp4',
-    'Argentina.mp4',
-    'Belgium.mp4',
-    'Norway.mp4',
-    'Austria.mp4',
-    'UAE.mp4',
-    'SouthAfrica.mp4',
-    'Nigeria.mp4',
-    'Egypt.mp4',
-    'Pakistan.mp4',
-    'Bangladesh.mp4',
-    'Vietnam.mp4',
-    'Thailand.mp4',
-    'Philippines.mp4',
-    'Malaysia.mp4',
-    'Singapore.mp4',
-    'NewZealand.mp4',
-    'Colombia.mp4',
-    'Chile.mp4',
-    'Peru.mp4',
-    'Greece.mp4',
-    'Portugal.mp4',
-    'CzechRepublic.mp4',
-    'Hungary.mp4',
-    'Romania.mp4',
-    'Ireland.mp4',
-    'Denmark.mp4',
-    'Finland.mp4',
-    'Israel.mp4'
-  ];
+    // 학습할 주요 50개 나라별 영상 파일명 (Italy1.mp4 추가)
+    const videos = [
+      'USA.mp4','China.mp4','Japan.mp4','Germany.mp4','UK.mp4',
+      'France.mp4','Italy.mp4','Italy1.mp4','Canada.mp4','Russia.mp4',
+      'Brazil.mp4','India.mp4','Australia.mp4','Mexico.mp4','SouthKorea.mp4',
+      'Spain.mp4','Indonesia.mp4','Turkey.mp4','Netherlands.mp4','SaudiArabia.mp4',
+      'Switzerland.mp4','Sweden.mp4','Poland.mp4','Argentina.mp4','Belgium.mp4',
+      'Norway.mp4','Austria.mp4','UAE.mp4','SouthAfrica.mp4','Nigeria.mp4',
+      'Egypt.mp4','Pakistan.mp4','Bangladesh.mp4','Vietnam.mp4','Thailand.mp4',
+      'Philippines.mp4','Malaysia.mp4','Singapore.mp4','NewZealand.mp4','Colombia.mp4',
+      'Chile.mp4','Peru.mp4','Greece.mp4','Portugal.mp4','CzechRepublic.mp4',
+      'Hungary.mp4','Romania.mp4','Ireland.mp4','Denmark.mp4','Finland.mp4',
+      'Israel.mp4'
+    ];
 
-  // 각 나라의 특징을 담은 설명
-  const descriptions = {
-    'USA':             '미국은 할리우드 영화 산업과 실리콘밸리 기술 혁신으로 유명합니다.',
+    // 각 나라의 특징을 담은 설명 (Italy1 추가)
+    const descriptions = {
+ 'USA':             '미국은 할리우드 영화 산업과 실리콘밸리 기술 혁신으로 유명합니다.',
     'China':           '중국은 만리장성과 풍부한 차(茶) 문화가 유명합니다.',
     'Japan':           '일본은 벚꽃과 전통 온천, 애니메이션 문화로 잘 알려져 있습니다.',
     'Germany':         '독일은 고성능 자동차(벤츠, BMW)와 옥토버페스트 맥주 축제로 유명합니다.',
@@ -137,8 +96,9 @@
     'Denmark':         '덴마크는 디자인 가구와 자전거 문화로 유명합니다.',
     'Finland':         '핀란드는 사우나 문화와 산타클로스 마을로 유명합니다.',
     'Israel':          '이스라엘은 예루살렘 성지와 사해 두루마리로 유명합니다.'
-  };
-</script>
+      'Italy1':'이탈리아는 르네상스 예술과 베네치아 곤돌라가 유명합니다.',
+
+    };
 
     // Fisher–Yates 셔플
     function shuffle(array) {
@@ -162,42 +122,31 @@
       currentIndex = (currentIndex - 1 + videos.length) % videos.length;
       loadVideo();
     });
-
     document.getElementById('nextBtn').addEventListener('click', () => {
       currentIndex = (currentIndex + 1) % videos.length;
       loadVideo();
     });
-
     document.getElementById('answerBtn').addEventListener('click', () => {
       const filename = videos[currentIndex];
-      const country = filename.substring(0, filename.lastIndexOf('.')) || filename;
+      const country = filename.slice(0, filename.lastIndexOf('.')) || filename;
       document.getElementById('answer').textContent = `정답: ${country}`;
     });
-
     document.getElementById('descBtn').addEventListener('click', () => {
       const filename = videos[currentIndex];
-      const country = filename.substring(0, filename.lastIndexOf('.')) || filename;
+      const country = filename.slice(0, filename.lastIndexOf('.')) || filename;
       const desc = descriptions[country] || '설명 데이터가 없습니다.';
       document.getElementById('description').textContent = desc;
     });
 
-    // 키보드 단축키 설정: q=이전, w=정답보기, r=설명보기, e=다음
+    // 키보드 단축키: q=이전, w=정답보기, r=설명보기, e=다음
     document.addEventListener('keydown', (e) => {
       const tag = e.target.tagName.toLowerCase();
       if (tag === 'input' || tag === 'textarea') return;
       switch (e.key.toLowerCase()) {
-        case 'q':
-          document.getElementById('prevBtn').click();
-          break;
-        case 'w':
-          document.getElementById('answerBtn').click();
-          break;
-        case 'r':
-          document.getElementById('descBtn').click();
-          break;
-        case 'e':
-          document.getElementById('nextBtn').click();
-          break;
+        case 'q': document.getElementById('prevBtn').click(); break;
+        case 'w': document.getElementById('answerBtn').click(); break;
+        case 'r': document.getElementById('descBtn').click(); break;
+        case 'e': document.getElementById('nextBtn').click(); break;
       }
     });
 
