@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>나라수어 학습 사이트</title>
+  <style>
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #f0f0f0; margin: 0; }
+    #videoContainer { position: relative; }
+    video { max-width: 100%; border: 1px solid #ccc; border-radius: 8px; }
+    .controls { margin-top: 10px; }
+    button { margin: 0 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    #answer, #description { margin-top: 10px; font-size: 18px; color: #333; }
+    #description { font-size: 16px; color: #555; }
+  </style>
+</head>
+<body>
+  <div id="videoContainer">
+    <video id="videoPlayer" autoplay loop></video>
+  </div>
+  <div class="controls">
+    <button id="prevBtn">이전</button>
+    <button id="answerBtn">정답보기</button>
+    <button id="descBtn">설명보기</button>
+    <button id="nextBtn">다음</button>
+  </div>
+  <div id="answer"></div>
+  <div id="description"></div>
+
+  <script>
+    // 학습할 나라별 영상 파일명
 <script>
   // 학습할 주요 50개 나라별 영상 파일명
   const videos = [
@@ -107,3 +139,72 @@
     'Israel':          '이스라엘은 예루살렘 성지와 사해 두루마리로 유명합니다.'
   };
 </script>
+
+    // Fisher–Yates 셔플
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    let currentIndex = 0;
+
+    function loadVideo() {
+      const player = document.getElementById('videoPlayer');
+      player.src = videos[currentIndex];
+      document.getElementById('answer').textContent = '';
+      document.getElementById('description').textContent = '';
+      player.play();
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+      loadVideo();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % videos.length;
+      loadVideo();
+    });
+
+    document.getElementById('answerBtn').addEventListener('click', () => {
+      const filename = videos[currentIndex];
+      const country = filename.substring(0, filename.lastIndexOf('.')) || filename;
+      document.getElementById('answer').textContent = `정답: ${country}`;
+    });
+
+    document.getElementById('descBtn').addEventListener('click', () => {
+      const filename = videos[currentIndex];
+      const country = filename.substring(0, filename.lastIndexOf('.')) || filename;
+      const desc = descriptions[country] || '설명 데이터가 없습니다.';
+      document.getElementById('description').textContent = desc;
+    });
+
+    // 키보드 단축키 설정: q=이전, w=정답보기, r=설명보기, e=다음
+    document.addEventListener('keydown', (e) => {
+      const tag = e.target.tagName.toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      switch (e.key.toLowerCase()) {
+        case 'q':
+          document.getElementById('prevBtn').click();
+          break;
+        case 'w':
+          document.getElementById('answerBtn').click();
+          break;
+        case 'r':
+          document.getElementById('descBtn').click();
+          break;
+        case 'e':
+          document.getElementById('nextBtn').click();
+          break;
+      }
+    });
+
+    window.addEventListener('load', () => {
+      shuffle(videos);
+      loadVideo();
+    });
+  </script>
+</body>
+</html>
