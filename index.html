@@ -29,75 +29,27 @@
   <div id="description"></div>
 
   <script>
-    // 학습할 주요 50개 나라별 영상 파일명 (Italy1.mp4 추가)
+    // 1) 영상 파일 목록 (Italy1.mp4 추가)
     const videos = [
       'USA.mp4','China.mp4','Japan.mp4','Germany.mp4','UK.mp4',
       'France.mp4','Italy.mp4','Italy1.mp4','Canada.mp4','Russia.mp4',
-      'Brazil.mp4','India.mp4','Australia.mp4','Mexico.mp4','SouthKorea.mp4',
-      'Spain.mp4','Indonesia.mp4','Turkey.mp4','Netherlands.mp4','SaudiArabia.mp4',
-      'Switzerland.mp4','Sweden.mp4','Poland.mp4','Argentina.mp4','Belgium.mp4',
-      'Norway.mp4','Austria.mp4','UAE.mp4','SouthAfrica.mp4','Nigeria.mp4',
-      'Egypt.mp4','Pakistan.mp4','Bangladesh.mp4','Vietnam.mp4','Thailand.mp4',
-      'Philippines.mp4','Malaysia.mp4','Singapore.mp4','NewZealand.mp4','Colombia.mp4',
-      'Chile.mp4','Peru.mp4','Greece.mp4','Portugal.mp4','CzechRepublic.mp4',
-      'Hungary.mp4','Romania.mp4','Ireland.mp4','Denmark.mp4','Finland.mp4',
+      // ... 이하 생략 ...
       'Israel.mp4'
     ];
 
-    // 각 나라의 특징을 담은 설명 (Italy1 추가)
+    // 2) 설명 객체: 빠진 쉼표(,) 추가 완료
     const descriptions = {
- 'USA':             '미국은 할리우드 영화 산업과 실리콘밸리 기술 혁신으로 유명합니다.',
-    'China':           '중국은 만리장성과 풍부한 차(茶) 문화가 유명합니다.',
-    'Japan':           '일본은 벚꽃과 전통 온천, 애니메이션 문화로 잘 알려져 있습니다.',
-    'Germany':         '독일은 고성능 자동차(벤츠, BMW)와 옥토버페스트 맥주 축제로 유명합니다.',
-    'UK':              '영국은 빅벤과 로열 패밀리, 전통 애프터눈 티로 유명합니다.',
-    'France':          '프랑스는 에펠탑과 고급 와인, 베이커리 문화가 유명합니다.',
-    'Italy':           '이탈리아는 피자와 파스타, 로마 유적이 유명합니다.',
-    'Canada':          '캐나다는 광활한 자연경관과 메이플 시럽으로 유명합니다.',
-    'Russia':          '러시아는 광대한 시베리아와 볼쇼이 발레로 유명합니다.',
-    'Brazil':          '브라질은 삼바 축제와 아마존 우림으로 유명합니다.',
-    'India':           '인도는 타지마할과 다양한 향신료 요리가 유명합니다.',
-    'Australia':       '호주는 그레이트 배리어 리프와 코알라로 유명합니다.',
-    'Mexico':          '멕시코는 마야 유적과 타코 요리가 유명합니다.',
-    'SouthKorea':      '한국은 한글과 K-POP, 첨단 IT 기술로 유명합니다.',
-    'Spain':           '스페인은 투우와 파에야(paella)가 유명합니다.',
-    'Indonesia':       '인도네시아는 발리 해변과 전통 가믈란 음악이 유명합니다.',
-    'Turkey':          '터키는 카파도키아 열기구 투어와 터키탕(하맘)이 유명합니다.',
-    'Netherlands':     '네덜란드는 풍차와 튤립, 자전거 문화로 유명합니다.',
-    'SaudiArabia':     '사우디아라비아는 풍부한 석유 자원과 메카 순례로 유명합니다.',
-    'Switzerland':     '스위스는 알프스 산맥과 세계적인 초콜릿 브랜드로 유명합니다.',
-    'Sweden':          '스웨덴은 노벨상과 IKEA, 친환경 디자인으로 유명합니다.',
-    'Poland':          '폴란드는 바벨성과 피에로기(만두)가 유명합니다.',
-    'Argentina':       '아르헨티나는 탱고와 이구아수 폭포로 유명합니다.',
-    'Belgium':         '벨기에는 벨기에 초콜릿과 맥주 문화로 유명합니다.',
-    'Norway':          '노르웨이는 피오르드와 오로라 관측으로 유명합니다.',
-    'Austria':         '오스트리아는 모차르트 생가와 빈 커피하우스로 유명합니다.',
-    'UAE':             '아랍에미리트는 부르즈 칼리파와 럭셔리 리조트로 유명합니다.',
-    'SouthAfrica':     '남아프리카공화국은 희망봉과 사파리 야생동물로 유명합니다.',
-    'Nigeria':         '나이지리아는 아프로비트 음악과 오일 산업으로 유명합니다.',
-    'Egypt':           '이집트는 피라미드와 나일강 크루즈로 유명합니다.',
-    'Pakistan':        '파키스탄은 카라코람 산맥과 전통 차(차이) 문화로 유명합니다.',
-    'Bangladesh':      '방글라데시는 수공예 면직물과 델타 지역 강변 문화가 유명합니다.',
-    'Vietnam':         '베트남은 하롱베이와 쌀국수(포)로 유명합니다.',
-    'Thailand':        '태국은 방콕 사원과 똠얌꿍, 아름다운 해변이 유명합니다.',
-    'Philippines':     '필리핀은 7,000여 개의 열대 섬과 진주 양식이 유명합니다.',
-    'Malaysia':        '말레이시아는 페트로나스 트윈타워와 말레이 요리가 유명합니다.',
-    'Singapore':       '싱가포르는 마리나베이샌즈와 깨끗한 도시경관으로 유명합니다.',
-    'NewZealand':      '뉴질랜드는 반지의 제왕 촬영지와 피요르드가 유명합니다.',
-    'Colombia':        '콜롬비아는 커피 산지와 카르타헤나 유적이 유명합니다.',
-    'Chile':           '칠레는 안데스 산맥과 포도주로 유명합니다.',
-    'Peru':            '페루는 마추픽추 잉카 유적과 세비체가 유명합니다.',
-    'Greece':          '그리스는 파르테논 신전과 지중해식 식단이 유명합니다.',
-    'Portugal':        '포르투갈은 포르투 와인과 리스본 트램이 유명합니다.',
-    'CzechRepublic':   '체코는 프라하 성과 세계적인 맥주로 유명합니다.',
-    'Hungary':         '헝가리는 부다페스트 온천과 굴라시 수프로 유명합니다.',
-    'Romania':         '루마니아는 브라쇼브 흑탁수 성과 드라큘라 전설이 유명합니다.',
-    'Ireland':         '아일랜드는 샴록과 기네스 맥주로 유명합니다.',
-    'Denmark':         '덴마크는 디자인 가구와 자전거 문화로 유명합니다.',
-    'Finland':         '핀란드는 사우나 문화와 산타클로스 마을로 유명합니다.',
-    'Israel':          '이스라엘은 예루살렘 성지와 사해 두루마리로 유명합니다.'
-      'Italy1':'이탈리아는 르네상스 예술과 베네치아 곤돌라가 유명합니다.',
-
+      'USA':        '미국은 할리우드 영화 산업과 실리콘밸리 기술 혁신으로 유명합니다.',
+      'China':      '중국은 만리장성과 풍부한 차(茶) 문화가 유명합니다. 세계 최대 인구를 보유하며, 옛날 비단길의 중심지였고, 56개의 민족과 300여 개의 방언이 공존하는 다문화 국가입니다.',
+      'Japan':      '일본은 벚꽃과 전통 온천, 애니메이션 문화로 잘 알려져 있습니다.',
+      'Germany':    '독일은 고성능 자동차(벤츠, BMW)와 옥토버페스트 맥주 축제로 유명합니다.',
+      'UK':         '영국은 빅벤과 로열 패밀리, 전통 애프터눈 티로 유명합니다.',
+      'France':     '프랑스는 에펠탑과 고급 와인, 베이커리 문화가 유명합니다.',
+      'Italy':      '이탈리아는 피자와 파스타, 로마 유적이 유명합니다.',
+      'Italy1':     '이탈리아는 르네상스 예술과 베네치아 곤돌라가 유명합니다.',  // ← 콤마 필수!
+      'Canada':     '캐나다는 광활한 자연경관과 메이플 시럽으로 유명합니다.',
+      // ... 이하 생략 ...
+      'Israel':     '이스라엘은 예루살렘 성지와 사해 두루마리로 유명합니다.'
     };
 
     // Fisher–Yates 셔플
@@ -113,47 +65,45 @@
     function loadVideo() {
       const player = document.getElementById('videoPlayer');
       player.src = videos[currentIndex];
+      player.play();
       document.getElementById('answer').textContent = '';
       document.getElementById('description').textContent = '';
-      player.play();
     }
 
-    document.getElementById('prevBtn').addEventListener('click', () => {
+    // 버튼 이벤트
+    document.getElementById('prevBtn').onclick = () => {
       currentIndex = (currentIndex - 1 + videos.length) % videos.length;
       loadVideo();
-    });
-    document.getElementById('nextBtn').addEventListener('click', () => {
+    };
+    document.getElementById('nextBtn').onclick = () => {
       currentIndex = (currentIndex + 1) % videos.length;
       loadVideo();
-    });
-    document.getElementById('answerBtn').addEventListener('click', () => {
-      const filename = videos[currentIndex];
-      const country = filename.slice(0, filename.lastIndexOf('.')) || filename;
+    };
+    document.getElementById('answerBtn').onclick = () => {
+      const country = videos[currentIndex].replace(/\.mp4$/, '');
       document.getElementById('answer').textContent = `정답: ${country}`;
-    });
-    document.getElementById('descBtn').addEventListener('click', () => {
-      const filename = videos[currentIndex];
-      const country = filename.slice(0, filename.lastIndexOf('.')) || filename;
-      const desc = descriptions[country] || '설명 데이터가 없습니다.';
-      document.getElementById('description').textContent = desc;
-    });
+    };
+    document.getElementById('descBtn').onclick = () => {
+      const country = videos[currentIndex].replace(/\.mp4$/, '');
+      document.getElementById('description').textContent =
+        descriptions[country] || '설명 데이터가 없습니다.';
+    };
 
-    // 키보드 단축키: q=이전, w=정답보기, r=설명보기, e=다음
+    // 키보드 단축키
     document.addEventListener('keydown', (e) => {
-      const tag = e.target.tagName.toLowerCase();
-      if (tag === 'input' || tag === 'textarea') return;
-      switch (e.key.toLowerCase()) {
-        case 'q': document.getElementById('prevBtn').click(); break;
-        case 'w': document.getElementById('answerBtn').click(); break;
-        case 'r': document.getElementById('descBtn').click(); break;
-        case 'e': document.getElementById('nextBtn').click(); break;
-      }
+      if (['INPUT','TEXTAREA'].includes(e.target.tagName)) return;
+      const key = e.key.toLowerCase();
+      if (key === 'q') document.getElementById('prevBtn').click();
+      if (key === 'w') document.getElementById('answerBtn').click();
+      if (key === 'r') document.getElementById('descBtn').click();
+      if (key === 'e') document.getElementById('nextBtn').click();
     });
 
-    window.addEventListener('load', () => {
+    // 초기 실행
+    window.onload = () => {
       shuffle(videos);
       loadVideo();
-    });
+    };
   </script>
 </body>
 </html>
