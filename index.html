@@ -102,14 +102,16 @@
     }
 
     let currentIndex = 0;
+function loadVideo() {
+  const player = document.getElementById('videoPlayer');
+  player.muted = true;        // ① 무음 설정
+  player.src   = videos[currentIndex];
+  player.play()               // ② play() 호출
+    .catch(err => console.warn('자동 재생 실패:', err));
+  document.getElementById('answer').textContent = '';
+  document.getElementById('description').textContent = '';
+}
 
-    function loadVideo() {
-      const player = document.getElementById('videoPlayer');
-      player.src = videos[currentIndex];
-      player.play();
-      document.getElementById('answer').textContent = '';
-      document.getElementById('description').textContent = '';
-    }
 
     // 버튼 이벤트
     document.getElementById('prevBtn').onclick = () => {
